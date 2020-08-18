@@ -1,4 +1,5 @@
 from __future__ import division
+from math import log1p
 
 # Style index functions
 def scale_data(imgband_data, scale_from, scale_to):
@@ -77,6 +78,12 @@ def band_quotient(data, band1, band2, product_cfg=None):
 
 def band_quotient_sum(data, band1a, band1b, band2a, band2b, product_cfg=None):
     return band_quotient(data, band1a, band1b, product_cfg) + band_quotient(data, band2a, band2b, product_cfg)
+
+
+def band_log(data, band, product_cfg=None):
+    if product_cfg:
+        band = product_cfg.band_idx.band(band)
+    return log1p(data[band])
 
 
 def sentinel2_ndci(data, b_red_edge, b_red, b_green, b_swir, product_cfg=None):
